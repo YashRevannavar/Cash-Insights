@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Cash Insights</title>
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='style.css')}}">
+</head>
+
+<body>
+	<div class="header">
+		<h1>Cash Insights</h1>
+    </div>
+	<main>
+		<div class="block">
+			<h2>Dashboard</h2>
+		</div>
+		<div class="block">
+			<h2>Buttons</h2>
+			<div class="button-container">
+				<button class="add-expense">Add Expense</button>
+				<button class="report">Report</button>
+				<button class="record">Record</button>
+			</div>
+            <div>
+                <p>{{item}}, {{amount}}</p>
+            </div>
+		</div>
+	</main>
+</body>
+
+</html>
+
+
+<!-- <h3></h3>
+<form method="post" action="/">
+    <h3>Please enter Search Keyword</h3>
+    <input type="text" value="word" name="word" />
+    <h3>Please Select any one column to search the above Keyword</h3>
+    <input type="radio" name="star" id="name" value="name"> Name </input><br>
+    <input type="radio" name="star" id="title" value="title"> Title </input><br>
+    <input type="radio" name="star" id="description" value="description"> Description </input><br>
+    <input type="radio" name="star" id="content" value="content"> Content </input><br>
+    <h3>Choose the columns which you are interested in:</h3>
+    <input type="checkbox" name="Column" value="name"> Name </input><br>
+    <input type="checkbox" name="Column" value="author"> Author </input><br>
+    <input type="checkbox" name="Column" value="title"> Title </input><br>
+    <input type="checkbox" name="Column" value="description"> Description </input><br>
+    <input type="checkbox" name="Column" value="url"> url </input><br>
+    <input type="checkbox" name="Column" value="urlToImage"> url To Image </input><br>
+    <input type="checkbox" name="Column" value="publishedAt"> Published At </input><br>
+    <input type="checkbox" name="Column" value="content"> Content </input><br>
+    <input type="submit" value="done" name="Query" />
+</form> -->
