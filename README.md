@@ -2,6 +2,7 @@
 
 CashInsights is a personal finance management and analysis platform that allows users to track their day-to-day spending and gain insights into their cash flow.
 
+> **Attention: Program in process.**
 ## About
 
 This project was created by Yash Revannavar as a portfolio project to demonstrate proficiency in Python programming and data analysis. CashInsights is built with Python, Flask/Django, SQLite, and Pandas, and provides a user-friendly interface for inputting and analyzing financial data. 
