@@ -1,4 +1,5 @@
 import sqlite3
+import csv
 import pandas as pd
 
 
@@ -8,7 +9,7 @@ def initial_connection():
     Returns:
     tuple: A tuple containing two objects: the connection object and the cursor object.
     """
-    conn = sqlite3.connect("data/trial01.db")
+    conn = sqlite3.connect("data/trial03.db")
     c = conn.cursor()
     return conn, c
 
@@ -49,7 +50,7 @@ def insert_to_db(date, category, won, item, amount):
                     "amount": amount})
 
 
-def convert_to_df(location):
+def convert_to_df(db_location):
     """
     Reads data from a SQLite database located at `location` and returns it as a pandas DataFrame.
     Args:
@@ -57,13 +58,44 @@ def convert_to_df(location):
     Returns:
     pandas.DataFrame: A DataFrame containing the data from the `expense` table of the database.
     """
-    cnx = sqlite3.connect(location)
+    cnx = sqlite3.connect(db_location)
     df = pd.read_sql_query("SELECT * FROM expense", cnx)
+    conn.close()
     return df
+
+def csv_import(csv_location):
+    """
+    Imports data from a CSV file and inserts it into the 'expense' table of the connected database.
+    Args:location (str): The file path and name of the CSV file to be imported.
+    Raises:FileNotFoundError: If the specified file path and name is not found.
+    Returns:None
+    """
+    conn, c = initial_connection()
+    with conn:
+        try:
+            with open(csv_location, mode='r') as file:
+                reader = csv.reader(file)
+                next(reader)
+                for row in reader:
+                    # Check if data already exists before inserting
+                    c.execute("SELECT * FROM expense WHERE dt=? AND category=? AND item=? AND amount=?",
+                                (row[0], row[1], row[3], row[4]))
+                    existing_data = c.fetchone()
+                    if existing_data:
+                        continue
+                    # If data doesn't exist, insert it into the database
+                    c.execute('''
+                        INSERT INTO expense
+                        VALUES (?, ?, ?, ?, ?)
+                    ''', row[0:])
+        except FileNotFoundError:
+            print("File not found at the specified location.")
+            return None
 
 c.execute("SELECT * FROM expense")
 
-# print(c.fetchall())
-
+# df = pd.read_csv("scripts/data.csv")
+# print(df)
+print(c.fetchall())
 # Close connection.
 conn.close()

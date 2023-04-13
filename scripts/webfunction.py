@@ -1,4 +1,5 @@
 from flask import Flask, request
+from sql import csv_import
 
 def get_data_from_form():
     """
@@ -17,3 +18,5 @@ def get_data_from_form():
     item = request.form["item"]
     amount = request.form["amount"]
     return date, category, won, item, amount
+
+csv_import(csv_location='scripts/data.csv')
