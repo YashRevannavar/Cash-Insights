@@ -42,7 +42,9 @@ Contributions to this project are welcome. To contribute, please follow these st
 4. Push your changes to the branch: `git push origin my-feature-branch`
 5. Submit a pull request.
 
-## Credits
+## LICENSE
+[MIT License](LICENSE)
 
+## Author
 - Yash Revannavar
 
