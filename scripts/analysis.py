@@ -1,9 +1,30 @@
 import pandas as pd
-import matplotlib.pyplot as plt
-from sql import convert_to_df
+import plotly.express as px
+import numpy as np
+# from sql import convert_to_df
 
-# df = convert_to_df(db_location='data/trial03.db')
-# print(df.columns)
+def preprocess():
+    df = pd.read_csv("data.csv", dtype={
+            'category': str,
+            'won': str,
+            'name': str,
+            'amount': np.float16})
+    df['name'] = df['name'].astype('category')
+    df['won'] = df['won'].astype('category')
+    df['category'] = df['category'].astype('category')
+    df['date'] = pd.to_datetime(df['date'],dayfirst=True)
+    df = df.sort_values(by='date')
+    return df
 
-# plt.hist(x=df.amount)
-# plt.show()
+def pl_bar(df):
+    fig = px.bar(data_frame=df,
+        x="date",
+        y="amount",
+        color="won",
+        hover_data=["name", "category"]
+        )
+    return fig
+
+df = preprocess()
+fig = pl_bar(df=df)
+fig.show()
