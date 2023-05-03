@@ -9,7 +9,7 @@ def initial_connection():
     Returns:
     tuple: A tuple containing two objects: the connection object and the cursor object.
     """
-    conn = sqlite3.connect("data/trial03.db")
+    conn = sqlite3.connect("data/trial.db")
     c = conn.cursor()
     return conn, c
 
@@ -93,9 +93,11 @@ def csv_import(csv_location):
             return None
 
 c.execute("SELECT * FROM expense")
+print(c.fetchall())
 
+
+# csv_import("data.csv")
 # df = pd.read_csv("scripts/data.csv")
 # print(df)
-print(c.fetchall())
 # Close connection.
 conn.close()
