@@ -13,6 +13,7 @@ def initial_connection():
     c = conn.cursor()
     return conn, c
 
+
 conn, c = initial_connection()
 
 
@@ -28,6 +29,7 @@ c.execute(
     """
 )
 
+
 def insert_to_db(date, category, won, item, amount):
     """
     Inserts a new row of data into the `expense` table of a SQLite database.
@@ -42,12 +44,16 @@ def insert_to_db(date, category, won, item, amount):
     """
     conn, c = initial_connection()
     with conn:
-        c.execute("INSERT INTO expense VALUES (:dt,:category, :won, :item, :amount)",
-                    {"dt": date,
-                    "category": category,
-                    "won": won,
-                    "item": item,
-                    "amount": amount})
+        c.execute(
+            "INSERT INTO expense VALUES (:dt,:category, :won, :item, :amount)",
+            {
+                "dt": date,
+                "category": category,
+                "won": won,
+                "item": item,
+                "amount": amount,
+            },
+        )
 
 
 def convert_to_df(db_location):
@@ -63,6 +69,7 @@ def convert_to_df(db_location):
     conn.close()
     return df
 
+
 def csv_import(csv_location):
     """
     Imports data from a CSV file and inserts it into the 'expense' table of the connected database.
@@ -73,24 +80,30 @@ def csv_import(csv_location):
     conn, c = initial_connection()
     with conn:
         try:
-            with open(csv_location, mode='r') as file:
+            with open(csv_location, mode="r") as file:
                 reader = csv.reader(file)
                 next(reader)
                 for row in reader:
                     # Check if data already exists before inserting
-                    c.execute("SELECT * FROM expense WHERE dt=? AND category=? AND item=? AND amount=?",
-                                (row[0], row[1], row[3], row[4]))
+                    c.execute(
+                        "SELECT * FROM expense WHERE dt=? AND category=? AND item=? AND amount=?",
+                        (row[0], row[1], row[3], row[4]),
+                    )
                     existing_data = c.fetchone()
                     if existing_data:
                         continue
                     # If data doesn't exist, insert it into the database
-                    c.execute('''
+                    c.execute(
+                        """
                         INSERT INTO expense
                         VALUES (?, ?, ?, ?, ?)
-                    ''', row[0:])
+                    """,
+                        row[0:],
+                    )
         except FileNotFoundError:
             print("File not found at the specified location.")
             return None
+
 
 c.execute("SELECT * FROM expense")
 print(c.fetchall())
