@@ -1,34 +1,38 @@
 <!DOCTYPE html>
 <html>
-
-<head>
+  <head>
     <title>Cash Insights</title>
-    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='style.css')}}">
-</head>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{url_for('static', filename='style.css')}}"
+    />
+  </head>
 
-<body>
-	<div class="header">
-		<h1>Cash Insights</h1>
+  <body>
+    <div class="header">
+      <h1>Cash Insights</h1>
     </div>
-	<main>
-		<div class="block">
-			<h2>Dashboard</h2>
-		</div>
-		<div class="block">
-			<h2>Buttons</h2>
-			<div class="button-container">
-                <form action="#" method="post">
-                    <input type="submit" name="expense" value="expense">
-                </form>
-				<button class="add-expense" type="button" value="expense">Add Expense</button>
-				<button class="report">Report</button>
-				<button class="record">Record</button>
-			</div>
-            <div>
-                <p>{{item}}, {{amount}}, {{category}}, {{won}}</p>
-            </div>
-		</div>
-	</main>
-</body>
-
+    <main>
+      <div class="block">
+        <h2>Dashboard</h2>
+      </div>
+      <div class="block">
+        <h2>Buttons</h2>
+        <div class="button-container">
+          <form action="#" method="post">
+            <input type="submit" name="expense" value="expense" />
+          </form>
+          <button class="add-expense" type="button" value="expense">
+            Add Expense
+          </button>
+          <button class="report" type="button" value="report">Report</button>
+          <!-- <button class="record">Record</button> -->
+        </div>
+        <div>
+          <p>{{item}}, {{amount}}, {{category}}, {{won}}</p>
+        </div>
+      </div>
+    </main>
+  </body>
 </html>

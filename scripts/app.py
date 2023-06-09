@@ -5,16 +5,24 @@ from sql import insert_to_db
 app = Flask(__name__)
 
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route("/", methods=["GET", "POST"])
 def home():
-    # if request.method == "POST":
-    #     return render_template("expense.html")
-    # else:
-    #     pass
-    return render_template("index.html")
+    """
+    Home page
+    If the expense button is pressed it will redirect to the expense page
+    If the report button is pressed it will redirect to the report page
+    or stay on the home page
+    """
+    if request.method == "POST":
+        if request.form["submit_button"] == "expense":
+            return redirect(url_for("expense"))
+        elif request.form["submit_button"] == "report":
+            return redirect(url_for("report"))
+        else:
+            return render_template("index.html")
 
 
-@app.route("/expense", methods=["POST","GET"])
+@app.route("/expense", methods=["POST", "GET"])
 def expense():
     if request.method == "POST":
         date, category, won, item, amount = get_data_from_form()
@@ -24,18 +32,21 @@ def expense():
         return render_template("expense.html")
 
 
-# @app.route("/report", method=['GET', 'POST'])
-# def report():
-#     return render_template("report.html")
+@app.route("/report", methods=["GET", "POST"])
+def report():
+    return render_template("report.html")
+
 
 # Extra
 @app.route("/<name>")
 def user(name):
     return f"Hello {name}!"
 
+
 @app.route("/admin")
 def admin():
     return redirect(url_for("user", name="Admin"))
+
 
 if __name__ == "__main__":
     app.run(debug=True)
